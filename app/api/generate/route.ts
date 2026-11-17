@@ -6,7 +6,7 @@ type GeneratePayload = {
   text?: string;
   audio?: { name?: string; type?: string; size?: number };
   emotion?: string;
-  settings?: { resolution?: string; fps?: number; faceEnhance?: boolean };
+  settings?: { resolution?: string; fps?: number };
 };
 
 export async function POST(request: NextRequest) {

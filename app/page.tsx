@@ -116,7 +116,6 @@ export default function Home() {
   const [jobId, setJobId] = useState("");
   const [resultUrl, setResultUrl] = useState("");
   const [error, setError] = useState("");
-  const [advanced, setAdvanced] = useState(false);
   const audioInput = useRef<HTMLInputElement>(null);
 
   useEffect(() => () => {
@@ -179,7 +178,7 @@ export default function Home() {
       const response = await fetch("/api/generate", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({
         source: { name: source.file.name, type: source.file.type, size: source.file.size }, inputMode: mode, text: mode === "text" ? script : undefined,
         audio: audio ? { name: audio.file.name, type: audio.file.type, size: audio.file.size } : undefined, emotion,
-        settings: { resolution: "720p", fps: 25, faceEnhance: true },
+        settings: { resolution: "720p", fps: 25 },
       }) });
       const data = await response.json(); if (!response.ok) throw new Error(data.error || "任务创建失败");
       setJobId(data.jobId); setState("analyzing"); setProgress(34); await new Promise((resolve) => window.setTimeout(resolve, 900));
@@ -227,9 +226,6 @@ export default function Home() {
             <p className="output-hint">以下为输出配置，不属于人物、文字或语音输入</p>
             <div className="setting-row"><span>视频规格<small>输出视频分辨率</small></span><strong>720P</strong></div>
             <div className="setting-row"><span>输出帧率<small>输出视频画面流畅度</small></span><strong>25 FPS</strong></div>
-            <div className="setting-row"><span>输出人脸增强<small>增强输出视频的面部细节</small></span><label className="switch"><input type="checkbox" defaultChecked /><span /></label></div>
-            <button className="advanced" type="button" onClick={() => setAdvanced(!advanced)}>更多输出参数 <ChevronDown size={14} className={advanced ? "turned" : ""} /></button>
-            {advanced && <div className="advanced-box"><span>嘴部平滑：0.72</span><span>表情强度：0.65</span><span>边缘融合：开启</span></div>}
             <div className="job-status"><div className="status-head"><span>任务状态</span>{jobId && <small>{jobId.slice(0, 12)}</small>}</div><div className={`status-card ${state}`}><span className="status-icon">{state === "done" ? <Check size={18} /> : state === "idle" ? <Clock3 size={18} /> : <LoaderCircle className={state !== "error" ? "spin" : ""} size={18} />}</span><div><strong>{stateCopy[state].title}</strong><small>{stateCopy[state].detail}</small></div>{state !== "idle" && state !== "error" && <b>{progress}%</b>}</div>{state !== "idle" && <div className="progress"><span style={{ width: `${progress}%` }} /></div>}</div>
             {error && <p className="error-message">{error}</p>}
             {state === "done" && resultUrl ? <div className="result-actions"><video src={resultUrl} controls loop playsInline /><a href={resultUrl} download={`voiceface-${jobId || "demo"}.webm`}><ArrowDownToLine size={17} /> 下载占位视频</a><button type="button" onClick={reset}><RotateCcw size={15} /> 重新生成</button></div> : (

@@ -15,7 +15,7 @@ class StubLipSyncEngineTest(unittest.TestCase):
                     "inputMode": "text",
                     "text": "你好，欢迎使用 VoiceFace。",
                     "emotion": "温暖自然",
-                    "settings": {"resolution": "720p", "fps": 25, "faceEnhance": True},
+                    "settings": {"resolution": "720p", "fps": 25},
                 }
             )
             result = await engine.submit(payload)

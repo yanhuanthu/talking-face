@@ -14,7 +14,6 @@ class MediaMetadata(BaseModel):
 class RenderSettings(BaseModel):
     resolution: Literal["480p", "720p", "1080p"] = "720p"
     fps: int = Field(default=25, ge=15, le=60)
-    faceEnhance: bool = True
 
 
 class GenerateRequest(BaseModel):
