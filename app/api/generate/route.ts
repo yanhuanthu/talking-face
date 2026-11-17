@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { getPythonBackendUrl } from "../../../lib/runtime-env-context";
 
 type GeneratePayload = {
   source?: { name?: string; type?: string; size?: number };
@@ -14,7 +15,7 @@ export async function POST(request: NextRequest) {
   try { body = await request.json(); }
   catch { return NextResponse.json({ error: "请求格式无效" }, { status: 400 }); }
 
-  const pythonBackendUrl = process.env.PYTHON_BACKEND_URL?.replace(/\/$/, "");
+  const pythonBackendUrl = getPythonBackendUrl();
   if (pythonBackendUrl) {
     try {
       const response = await fetch(`${pythonBackendUrl}/api/v1/generate`, {
@@ -69,7 +70,7 @@ export async function POST(request: NextRequest) {
 }
 
 export async function GET() {
-  const pythonBackendUrl = process.env.PYTHON_BACKEND_URL?.replace(/\/$/, "");
+  const pythonBackendUrl = getPythonBackendUrl();
   if (pythonBackendUrl) {
     try {
       const response = await fetch(`${pythonBackendUrl}/health`);

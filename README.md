@@ -15,6 +15,17 @@ npm run dev
 
 Python 后端的启动方式和接口说明见 [`backend/README.md`](backend/README.md)。
 
+## 本地前端连接远程后端
+
+项目已经通过 `app/api/generate/route.ts` 提供同源代理。远程后端经 SSH 隧道映射到本地后，只需创建 `.env.local`：
+
+```bash
+cp .env.local.example .env.local
+npm run dev
+```
+
+默认配置会将前端代理连接到 `http://127.0.0.1:18000`。远程服务器部署、Windows/Xshell 跳板机和 macOS SSH 隧道的完整步骤见 [`docs/REMOTE_BACKEND.md`](docs/REMOTE_BACKEND.md)。
+
 ---
 
 ## Prerequisites

@@ -1,0 +1,21 @@
+[Unit]
+Description=VoiceFace Python backend
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+# Change these values to match the account and checkout path on the server.
+User=voiceface
+Group=voiceface
+WorkingDirectory=/opt/talking-face/backend
+EnvironmentFile=-/opt/talking-face/backend/.env
+ExecStart=/opt/talking-face/backend/.venv/bin/uvicorn app.main:app --host 127.0.0.1 --port 8000
+Restart=on-failure
+RestartSec=3
+TimeoutStopSec=30
+PrivateTmp=true
+NoNewPrivileges=true
+
+[Install]
+WantedBy=multi-user.target

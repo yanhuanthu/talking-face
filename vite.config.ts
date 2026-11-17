@@ -1,5 +1,5 @@
 import vinext from "vinext";
-import { defineConfig } from "vite";
+import { defineConfig, loadEnv } from "vite";
 import hostingConfig from "./.openai/hosting.json";
 import { readExecutionProfile } from "./scripts/execution-profile.mjs";
 import { configureToolEnvironment } from "./scripts/tool-environment.mjs";
@@ -37,8 +37,11 @@ const localBindingConfig = {
     : [],
 };
 
-export default defineConfig(async ({ command }) => {
+export default defineConfig(async ({ command, mode }) => {
   configureToolEnvironment(process.cwd());
+  const fileEnv = loadEnv(mode, process.cwd(), "");
+  const pythonBackendUrl = process.env.PYTHON_BACKEND_URL
+    ?? fileEnv.PYTHON_BACKEND_URL;
 
   // Wrangler snapshots its log path while the Cloudflare plugin is imported.
   const { cloudflare } = await import("@cloudflare/vite-plugin");
@@ -61,6 +64,9 @@ export default defineConfig(async ({ command }) => {
         inspectorPort: false,
         config: {
           ...localBindingConfig,
+          ...(command === "serve" && pythonBackendUrl
+            ? { vars: { PYTHON_BACKEND_URL: pythonBackendUrl } }
+            : {}),
           ...(command === "serve"
             ? {
                 services: [
