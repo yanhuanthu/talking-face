@@ -219,20 +219,28 @@ export default function Home() {
             <div className="chips">{["温暖自然", "专业沉稳", "开心活泼", "真诚感动"].map((item) => <button key={item} type="button" onClick={() => setEmotion(item)}>{item}</button>)}</div>
           </section>
 
-          <section className="panel preview-panel"><PreviewStage source={source} state={state} progress={progress} /><div className="preview-caption"><span><Zap size={14} /> 实时预览</span><p>最终画质与口型效果取决于接入的生成模型</p></div></section>
-
-          <aside className="panel control-panel">
-            <div className="control-heading"><span className="control-icon"><Video size={18} /></span><div><strong>输出视频参数</strong><small>仅影响最终生成的视频文件</small></div></div>
-            <p className="output-hint">以下为输出配置，不属于人物、文字或语音输入</p>
-            <div className="setting-row"><span>视频规格<small>输出视频分辨率</small></span><strong>720P</strong></div>
-            <div className="setting-row"><span>输出帧率<small>输出视频画面流畅度</small></span><strong>25 FPS</strong></div>
-            <div className="job-status"><div className="status-head"><span>任务状态</span>{jobId && <small>{jobId.slice(0, 12)}</small>}</div><div className={`status-card ${state}`}><span className="status-icon">{state === "done" ? <Check size={18} /> : state === "idle" ? <Clock3 size={18} /> : <LoaderCircle className={state !== "error" ? "spin" : ""} size={18} />}</span><div><strong>{stateCopy[state].title}</strong><small>{stateCopy[state].detail}</small></div>{state !== "idle" && state !== "error" && <b>{progress}%</b>}</div>{state !== "idle" && <div className="progress"><span style={{ width: `${progress}%` }} /></div>}</div>
-            {error && <p className="error-message">{error}</p>}
-            {state === "done" && resultUrl ? <div className="result-actions"><video src={resultUrl} controls loop playsInline /><a href={resultUrl} download={`voiceface-${jobId || "demo"}.webm`}><ArrowDownToLine size={17} /> 下载占位视频</a><button type="button" onClick={reset}><RotateCcw size={15} /> 重新生成</button></div> : (
-              <button className="generate-btn" type="submit" disabled={state === "queued" || state === "analyzing" || state === "rendering"}>{state === "queued" || state === "analyzing" || state === "rendering" ? <LoaderCircle className="spin" size={18} /> : <WandSparkles size={18} />}{state === "idle" || state === "error" ? "开始生成视频" : "正在生成…"}</button>
-            )}
-            <p className="stub-note"><span>STUB</span> 当前使用模拟后端，不消耗真实算力</p>
-          </aside>
+          <section className="panel preview-panel">
+            <PreviewStage source={source} state={state} progress={progress} />
+            <div className="preview-caption"><span><Zap size={14} /> 实时预览</span><p>最终画质与口型效果取决于接入的生成模型</p></div>
+            <div className="output-dock">
+              <div className="output-summary">
+                <span className="control-icon"><Video size={18} /></span>
+                <div><strong>输出视频参数</strong><small>位于视频预览下方，仅描述最终输出</small></div>
+              </div>
+              <div className="output-values">
+                <div className="setting-row"><span>视频规格<small>输出分辨率</small></span><strong>720P</strong></div>
+                <div className="setting-row"><span>输出帧率<small>画面流畅度</small></span><strong>25 FPS</strong></div>
+              </div>
+              <div className="job-status"><div className="status-head"><span>任务状态</span>{jobId && <small>{jobId.slice(0, 12)}</small>}</div><div className={`status-card ${state}`}><span className="status-icon">{state === "done" ? <Check size={18} /> : state === "idle" ? <Clock3 size={18} /> : <LoaderCircle className={state !== "error" ? "spin" : ""} size={18} />}</span><div><strong>{stateCopy[state].title}</strong><small>{stateCopy[state].detail}</small></div>{state !== "idle" && state !== "error" && <b>{progress}%</b>}</div>{state !== "idle" && <div className="progress"><span style={{ width: `${progress}%` }} /></div>}</div>
+              <div className="output-actions">
+                {error && <p className="error-message">{error}</p>}
+                {state === "done" && resultUrl ? <div className="result-actions"><video src={resultUrl} controls loop playsInline /><a href={resultUrl} download={`voiceface-${jobId || "demo"}.webm`}><ArrowDownToLine size={17} /> 下载占位视频</a><button type="button" onClick={reset}><RotateCcw size={15} /> 重新生成</button></div> : (
+                  <button className="generate-btn" type="submit" disabled={state === "queued" || state === "analyzing" || state === "rendering"}>{state === "queued" || state === "analyzing" || state === "rendering" ? <LoaderCircle className="spin" size={18} /> : <WandSparkles size={18} />}{state === "idle" || state === "error" ? "开始生成视频" : "正在生成…"}</button>
+                )}
+                <p className="stub-note"><span>STUB</span> 当前使用模拟后端，不消耗真实算力</p>
+              </div>
+            </div>
+          </section>
         </form>
       </section>
       <footer><span>北京第二外国语学院人工智能与语言科学学院</span><span>算法接口状态：<i /> Python 模拟服务正常</span><span>v0.2.0 · Prototype</span></footer>
