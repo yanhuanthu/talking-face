@@ -193,7 +193,7 @@ export default function Home() {
   return (
     <main>
       <header className="app-header">
-        <a className="brand" href="#" aria-label="VoiceFace Lab 首页"><span className="brand-mark"><span /><span /><span /><span /><span /></span><span><strong>Talking Face Generation</strong></span></a>
+        <a className="brand" href="#" aria-label="Talking Face Generation 首页"><span className="brand-mark"><span /><span /><span /><span /><span /></span><span><strong>Talking Face Generation</strong></span></a>
         <div className="header-center"><span className="header-kicker"></span><strong></strong></div>
         {/* <nav><button type="button"><CircleHelp size={16} /> 使用指南</button></nav> */}
       </header>
@@ -225,7 +225,7 @@ export default function Home() {
           <aside className="panel control-panel">
             <div className="control-heading"><span className="control-icon"><Video size={18} /></span><div><strong>输出视频参数</strong><small>仅影响最终生成的视频文件</small></div></div>
             <p className="output-hint">以下为输出配置，不属于人物、文字或语音输入</p>
-            <div className="setting-row"><span>视频规格<small>输出视频分辨率</small></span><button type="button">720P <ChevronDown size={13} /></button></div>
+            <div className="setting-row"><span>视频规格<small>输出视频分辨率</small></span><strong>720P</strong></div>
             <div className="setting-row"><span>输出帧率<small>输出视频画面流畅度</small></span><strong>25 FPS</strong></div>
             <div className="setting-row"><span>输出人脸增强<small>增强输出视频的面部细节</small></span><label className="switch"><input type="checkbox" defaultChecked /><span /></label></div>
             <button className="advanced" type="button" onClick={() => setAdvanced(!advanced)}>更多输出参数 <ChevronDown size={14} className={advanced ? "turned" : ""} /></button>
