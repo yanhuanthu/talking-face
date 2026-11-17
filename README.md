@@ -35,4 +35,3 @@ npm run dev
 - Managed Linux: managed Linux runtime with Bash, `flock`, `curl`, `sha256sum`, and GNU `timeout`
 - Git and `tar` (including Windows `tar.exe`) are required for publishing; portable publication does not require Bash
 
-
