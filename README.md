@@ -1,4 +1,4 @@
-# VoiceFace Lab
+# Talking Face Generation
 
 一个唇形生成系统原型。前端支持上传参考图片/视频、输入文字或语音、填写情感描述，并展示完整的模拟任务流程；独立 Python 后端位于 `backend/`，前端通过 `app/api/generate/route.ts` 代理访问。
 
