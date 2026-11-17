@@ -193,14 +193,14 @@ export default function Home() {
   return (
     <main>
       <header className="app-header">
-        <a className="brand" href="#" aria-label="VoiceFace Lab 首页"><span className="brand-mark"><span /><span /><span /><span /><span /></span><span><strong>VoiceFace</strong><small>LAB</small></span></a>
-        <div className="header-center"><span className="header-kicker">CREATION STUDIO</span><strong>唇形生成工作台</strong></div>
-        <nav><button type="button"><CircleHelp size={16} /> 使用指南</button><span className="api-badge"><span /> PYTHON API · STUB</span><button className="avatar" type="button">YL</button></nav>
+        <a className="brand" href="#" aria-label="VoiceFace Lab 首页"><span className="brand-mark"><span /><span /><span /><span /><span /></span><span><strong>Talking Face Generation</strong></span></a>
+        <div className="header-center"><span className="header-kicker"></span><strong></strong></div>
+        {/* <nav><button type="button"><CircleHelp size={16} /> 使用指南</button></nav> */}
       </header>
 
       <section className="workspace">
         <div className="workspace-heading">
-          <div><span className="eyebrow"><Sparkles size={14} /> AI TALKING PORTRAIT</span><h1>让每一帧，<em>自然开口</em></h1><p>将静态人像或视频转化为具有自然唇形与情感表达的说话视频。</p></div>
+          <div><h1>让每一帧，<em>自然开口</em></h1><p>将静态人像或视频转化为具有自然唇形与情感表达的说话视频。</p></div>
           <div className="stepper" aria-label="生成步骤">{["上传素材", "设置内容", "生成视频"].map((label, index) => <div key={label} className={index === 0 || source ? "active" : ""}><span>{index + 1}</span><small>{label}</small></div>)}</div>
         </div>
 
@@ -223,11 +223,12 @@ export default function Home() {
           <section className="panel preview-panel"><PreviewStage source={source} state={state} progress={progress} /><div className="preview-caption"><span><Zap size={14} /> 实时预览</span><p>最终画质与口型效果取决于接入的生成模型</p></div></section>
 
           <aside className="panel control-panel">
-            <div className="control-heading"><span className="control-icon"><WandSparkles size={18} /></span><div><strong>生成控制</strong><small>配置输出与查看任务状态</small></div></div>
-            <div className="setting-row"><span>输出规格<small>视频分辨率</small></span><button type="button">720P <ChevronDown size={13} /></button></div>
-            <div className="setting-row"><span>帧率<small>画面流畅度</small></span><strong>25 FPS</strong></div>
-            <div className="setting-row"><span>人脸增强<small>提升细节与清晰度</small></span><label className="switch"><input type="checkbox" defaultChecked /><span /></label></div>
-            <button className="advanced" type="button" onClick={() => setAdvanced(!advanced)}>高级设置 <ChevronDown size={14} className={advanced ? "turned" : ""} /></button>
+            <div className="control-heading"><span className="control-icon"><Video size={18} /></span><div><strong>输出视频参数</strong><small>仅影响最终生成的视频文件</small></div></div>
+            <p className="output-hint">以下为输出配置，不属于人物、文字或语音输入</p>
+            <div className="setting-row"><span>视频规格<small>输出视频分辨率</small></span><button type="button">720P <ChevronDown size={13} /></button></div>
+            <div className="setting-row"><span>输出帧率<small>输出视频画面流畅度</small></span><strong>25 FPS</strong></div>
+            <div className="setting-row"><span>输出人脸增强<small>增强输出视频的面部细节</small></span><label className="switch"><input type="checkbox" defaultChecked /><span /></label></div>
+            <button className="advanced" type="button" onClick={() => setAdvanced(!advanced)}>更多输出参数 <ChevronDown size={14} className={advanced ? "turned" : ""} /></button>
             {advanced && <div className="advanced-box"><span>嘴部平滑：0.72</span><span>表情强度：0.65</span><span>边缘融合：开启</span></div>}
             <div className="job-status"><div className="status-head"><span>任务状态</span>{jobId && <small>{jobId.slice(0, 12)}</small>}</div><div className={`status-card ${state}`}><span className="status-icon">{state === "done" ? <Check size={18} /> : state === "idle" ? <Clock3 size={18} /> : <LoaderCircle className={state !== "error" ? "spin" : ""} size={18} />}</span><div><strong>{stateCopy[state].title}</strong><small>{stateCopy[state].detail}</small></div>{state !== "idle" && state !== "error" && <b>{progress}%</b>}</div>{state !== "idle" && <div className="progress"><span style={{ width: `${progress}%` }} /></div>}</div>
             {error && <p className="error-message">{error}</p>}
@@ -238,7 +239,7 @@ export default function Home() {
           </aside>
         </form>
       </section>
-      <footer><span>VoiceFace Lab</span><span>算法接口状态：<i /> Python 模拟服务正常</span><span>v0.2.0 · Prototype</span></footer>
+      <footer><span>北京第二外国语学院人工智能与语言科学学院</span><span>算法接口状态：<i /> Python 模拟服务正常</span><span>v0.2.0 · Prototype</span></footer>
     </main>
   );
 }
