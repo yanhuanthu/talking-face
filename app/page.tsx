@@ -195,7 +195,7 @@ export default function Home() {
       <header className="app-header">
         <a className="brand" href="#" aria-label="VoiceFace Lab 首页"><span className="brand-mark"><span /><span /><span /><span /><span /></span><span><strong>VoiceFace</strong><small>LAB</small></span></a>
         <div className="header-center"><span className="header-kicker">CREATION STUDIO</span><strong>唇形生成工作台</strong></div>
-        <nav><button type="button"><CircleHelp size={16} /> 使用指南</button><span className="api-badge"><span /> API · STUB</span><button className="avatar" type="button">YL</button></nav>
+        <nav><button type="button"><CircleHelp size={16} /> 使用指南</button><span className="api-badge"><span /> PYTHON API · STUB</span><button className="avatar" type="button">YL</button></nav>
       </header>
 
       <section className="workspace">
@@ -238,7 +238,7 @@ export default function Home() {
           </aside>
         </form>
       </section>
-      <footer><span>VoiceFace Lab</span><span>算法接口状态：<i /> 模拟服务正常</span><span>v0.1.0 · Prototype</span></footer>
+      <footer><span>VoiceFace Lab</span><span>算法接口状态：<i /> Python 模拟服务正常</span><span>v0.2.0 · Prototype</span></footer>
     </main>
   );
 }

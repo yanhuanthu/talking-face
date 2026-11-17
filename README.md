@@ -1,6 +1,6 @@
 # VoiceFace Lab
 
-一个唇形生成系统原型。前端支持上传参考图片/视频、输入文字或语音、填写情感描述，并展示完整的模拟任务流程；后端通过 `app/api/generate/route.ts` 提供可替换的算法适配器打桩接口。
+一个唇形生成系统原型。前端支持上传参考图片/视频、输入文字或语音、填写情感描述，并展示完整的模拟任务流程；独立 Python 后端位于 `backend/`，前端通过 `app/api/generate/route.ts` 代理访问。
 
 ## 本地运行
 
@@ -11,7 +11,9 @@ npm run dev
 
 ## 替换真实算法
 
-将 `POST /api/generate` 中的模拟任务创建逻辑替换为真实算法服务调用，并保持返回字段 `jobId`、`status`、`estimatedDurationSeconds` 与结果查询契约即可。当前素材二进制仅在浏览器本地用于预览，不会上传到打桩后端。
+在 `backend/app/services/lipsync.py` 中实现 `LipSyncEngine` 协议，并保持返回字段 `jobId`、`status`、`estimatedDurationSeconds` 与任务查询契约即可。当前素材二进制仅在浏览器本地用于预览，不会上传到打桩后端。
+
+Python 后端的启动方式和接口说明见 [`backend/README.md`](backend/README.md)。
 
 ---
 
